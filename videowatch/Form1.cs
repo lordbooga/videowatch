@@ -18,27 +18,19 @@ namespace videowatch
         {
             cf = new configForm(this);
             isMonitoring = false;
-            isMin = false;
+        //    isMin = false;
             InitializeComponent();
-            watchFolderText.Text = @"D:\Downloads\New Shows";
             fileSystemWatcher1.EnableRaisingEvents = false;
             fileList = new List<String>();
             fileList.Clear();
             if(File.Exists("monitorList.txt"))
-                fileList.AddRange(File.ReadAllLines("monitorList.txt"));           
+                fileList.AddRange(File.ReadAllLines("monitorList.txt"));
             notifyIcon.Visible = false;
-            tokens.AccessToken = accessToken;
-            tokens.AccessTokenSecret = accessSecret;
-            tokens.ConsumerKey = consumerKey;
-            tokens.ConsumerSecret = consumerSecret;
+            tokens.AccessToken = settings.accessToken;
+            tokens.AccessTokenSecret = settings.accessSecret;
+            tokens.ConsumerKey = settings.consumerKey;
+            tokens.ConsumerSecret = settings.consumerSecret;
   
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            locateDir.ShowDialog();
-            watchFolderText.Text = locateDir.SelectedPath;
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -47,7 +39,7 @@ namespace videowatch
             {
                 button2.Text = "Stop Monitoring";
                 isMonitoring = true;
-                fileSystemWatcher1.Path = watchFolderText.Text;
+                fileSystemWatcher1.Path = settings.dirToMonitor;
                 fileSystemWatcher1.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 fileSystemWatcher1.EnableRaisingEvents = true;
             }
@@ -73,17 +65,17 @@ namespace videowatch
                 newFile = newFile.Replace('.', ' ');
                 fileList.Add(newFile);
                 updateTextBox(newFile);
-                if (shouldTweet)
+                if (settings.shouldTweet)
                 {
                     
                     TwitterResponse<TwitterDirectMessage> dmResponse = TwitterDirectMessage.Send(tokens, "lordbooga", newFile + " has been downloaded");
                     if (dmResponse.Result == RequestResult.Success)
                     {
-                        videoList.AppendText(newFile + " successfully tweeted\n");
+                        updateTextBox(newFile + " successfully tweeted\n");
                     }
                     else
                     {
-                        videoList.AppendText("Error tweeting new episode name:" + dmResponse.ErrorMessage + "\n");
+                        updateTextBox("Error tweeting new episode name:" + dmResponse.ErrorMessage + "\n");
                     }
                 }
                 
@@ -93,14 +85,10 @@ namespace videowatch
 
         private void fileSystemWatcher1_Deleted(object sender, System.IO.FileSystemEventArgs e)
         {
-            String removeMe = e.Name;
-     //      fileList.Remove(removeMe);
         }
 
         private void fileSystemWatcher1_Renamed(object sender, System.IO.RenamedEventArgs e)
         {
-         //   videoList.Text += "Got Rename Update";
-
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -108,16 +96,13 @@ namespace videowatch
             Show();
             Activate();
             BringToFront();
-            SetTopLevel(true);
-            
-            
+            SetTopLevel(true);       
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
-                isMin = true;
                 notifyIcon.Visible = true;
                 notifyIcon.Text = "New Episode Notifier";
                 Hide();
@@ -125,13 +110,12 @@ namespace videowatch
             if (this.WindowState == FormWindowState.Normal)
             {
                 notifyIcon.Visible = false;
-                isMin = false;
             }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            File.WriteAllLines("monitorList.txt", fileList.ToArray());
+            File.WriteAllLines("monitorList.txt", fileList);
         }
 
         private void button3_Click(object sender, EventArgs e)

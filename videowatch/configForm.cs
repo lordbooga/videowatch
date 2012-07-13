@@ -19,20 +19,12 @@ namespace videowatch
         {
             InitializeComponent();
             mainForm = mainform;
-            xmlConfig = new Configuration();
+           // mainForm.settings = new Configuration();
             if (File.Exists("config.xml"))
             {
-                xmlConfig = Configuration.Deserialize("config.xml");
-                mainForm.accessSecret = xmlConfig.accessSecret;
-                mainForm.accessToken = xmlConfig.accessToken;
-                mainForm.consumerKey = xmlConfig.consumerKey;
-                mainForm.consumerSecret = xmlConfig.consumerSecret;
-                mainForm.shouldTweet = xmlConfig.shouldTweet;
-                accessTokenBox.Text = mainForm.accessToken;
-                accessTokenSecret.Text = mainForm.accessSecret;
-                consumerSecretBox.Text = mainForm.accessToken;
-                consumerKeyBox.Text = mainForm.accessToken;
-                tweetNewFiles.Checked = mainForm.shouldTweet;
+                mainForm.settings = Configuration.Deserialize("config.xml");
+
+                ConfigFormToSettings();
             }        
         }
 
@@ -46,26 +38,45 @@ namespace videowatch
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ConfigFormToSettings();
             Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            xmlConfig.accessToken = accessTokenBox.Text;
-            xmlConfig.accessSecret = accessTokenSecret.Text;
-            xmlConfig.consumerKey = consumerKeyBox.Text;
-            xmlConfig.consumerSecret = consumerSecretBox.Text;
-            xmlConfig.shouldTweet = tweetNewFiles.Checked;
-
-            mainForm.accessSecret = xmlConfig.accessSecret;
-            mainForm.accessToken = xmlConfig.accessToken;
-            mainForm.consumerKey = xmlConfig.consumerKey;
-            mainForm.consumerSecret = xmlConfig.consumerSecret;
-            mainForm.shouldTweet = xmlConfig.shouldTweet;
-
-            Configuration.Serialize("config.xml", xmlConfig);
+            SettingsToConfigForm();
+            Configuration.Serialize("config.xml", mainForm.settings);
             Hide();
         }
+        public void SettingsToConfigForm()
+        {
+            mainForm.settings.accessSecret = accessTokenSecret.Text;
+            mainForm.settings.accessToken = accessTokenBox.Text;
+            mainForm.settings.consumerKey = consumerKeyBox.Text;
+            mainForm.settings.consumerSecret = consumerSecretBox.Text;
+            mainForm.settings.shouldTweet = tweetNewFiles.Checked;
+            mainForm.settings.dirToMonitor = monitorDir.Text;
+
+        }
+        public void ConfigFormToSettings()
+        {
+            accessTokenBox.Text = mainForm.settings.accessToken;
+            accessTokenSecret.Text = mainForm.settings.accessSecret;
+            consumerSecretBox.Text = mainForm.settings.consumerSecret;
+            consumerKeyBox.Text = mainForm.settings.consumerKey;
+            tweetNewFiles.Checked = mainForm.settings.shouldTweet;
+            monitorDir.Text = mainForm.settings.dirToMonitor;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog locateDir = new FolderBrowserDialog();
+            locateDir.ShowNewFolderButton = true;
+            DialogResult res = locateDir.ShowDialog();
+            if(res == DialogResult.OK)
+                monitorDir.Text = locateDir.SelectedPath;
+        }
+
 
     }
 }

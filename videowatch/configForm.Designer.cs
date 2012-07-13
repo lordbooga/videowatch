@@ -40,6 +40,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.debugMe = new System.Windows.Forms.TextBox();
+            this.monitorDir = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tweetNewFiles
@@ -59,28 +62,28 @@
             // 
             this.accessTokenBox.Location = new System.Drawing.Point(157, 39);
             this.accessTokenBox.Name = "accessTokenBox";
-            this.accessTokenBox.Size = new System.Drawing.Size(237, 20);
+            this.accessTokenBox.Size = new System.Drawing.Size(376, 20);
             this.accessTokenBox.TabIndex = 1;
             // 
             // accessTokenSecret
             // 
             this.accessTokenSecret.Location = new System.Drawing.Point(157, 65);
             this.accessTokenSecret.Name = "accessTokenSecret";
-            this.accessTokenSecret.Size = new System.Drawing.Size(237, 20);
+            this.accessTokenSecret.Size = new System.Drawing.Size(376, 20);
             this.accessTokenSecret.TabIndex = 2;
             // 
             // consumerKeyBox
             // 
             this.consumerKeyBox.Location = new System.Drawing.Point(157, 91);
             this.consumerKeyBox.Name = "consumerKeyBox";
-            this.consumerKeyBox.Size = new System.Drawing.Size(237, 20);
+            this.consumerKeyBox.Size = new System.Drawing.Size(376, 20);
             this.consumerKeyBox.TabIndex = 3;
             // 
             // consumerSecretBox
             // 
             this.consumerSecretBox.Location = new System.Drawing.Point(157, 117);
             this.consumerSecretBox.Name = "consumerSecretBox";
-            this.consumerSecretBox.Size = new System.Drawing.Size(237, 20);
+            this.consumerSecretBox.Size = new System.Drawing.Size(376, 20);
             this.consumerSecretBox.TabIndex = 4;
             // 
             // label1
@@ -121,7 +124,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(583, 431);
+            this.button1.Location = new System.Drawing.Point(446, 280);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(86, 27);
             this.button1.TabIndex = 9;
@@ -131,7 +134,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(675, 431);
+            this.button2.Location = new System.Drawing.Point(538, 281);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 26);
             this.button2.TabIndex = 10;
@@ -141,16 +144,45 @@
             // 
             // debugMe
             // 
-            this.debugMe.Location = new System.Drawing.Point(117, 171);
+            this.debugMe.Location = new System.Drawing.Point(138, 239);
             this.debugMe.Name = "debugMe";
             this.debugMe.Size = new System.Drawing.Size(394, 20);
             this.debugMe.TabIndex = 11;
+            // 
+            // monitorDir
+            // 
+            this.monitorDir.Location = new System.Drawing.Point(159, 168);
+            this.monitorDir.Name = "monitorDir";
+            this.monitorDir.Size = new System.Drawing.Size(373, 20);
+            this.monitorDir.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(52, 168);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Directory to Monitor";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(273, 194);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(115, 26);
+            this.button3.TabIndex = 14;
+            this.button3.Text = "Browse For Folder";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // configForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 460);
+            this.ClientSize = new System.Drawing.Size(634, 312);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.monitorDir);
             this.Controls.Add(this.debugMe);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -186,5 +218,8 @@
         private System.Windows.Forms.TextBox debugMe;
         private Form1 mainForm;
         public Configuration xmlConfig;
+        private System.Windows.Forms.TextBox monitorDir;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button3;
     }
 }

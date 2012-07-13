@@ -52,6 +52,7 @@ namespace videowatch
         public string consumerKey { get; set; }
         public string consumerSecret { get; set; }
         public bool shouldTweet { get; set; }
+        public string dirToMonitor { get; set; }
 
     }
     #endregion
