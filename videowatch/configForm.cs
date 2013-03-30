@@ -19,13 +19,11 @@ namespace videowatch
         {
             InitializeComponent();
             mainForm = mainform;
-           // mainForm.settings = new Configuration();
-            if (File.Exists("config.xml"))
-            {
-                mainForm.settings = Configuration.Deserialize("config.xml");
-
-                ConfigFormToSettings();
-            }        
+            ConfigFormToSettings();
+            accessTokenBox.Enabled = tweetNewFiles.Checked;
+            accessTokenSecret.Enabled = tweetNewFiles.Checked;
+            consumerSecretBox.Enabled = tweetNewFiles.Checked;
+            consumerKeyBox.Enabled = tweetNewFiles.Checked;
         }
 
         private void tweetNewFiles_CheckedChanged(object sender, EventArgs e)
@@ -45,27 +43,28 @@ namespace videowatch
         private void button1_Click(object sender, EventArgs e)
         {
             SettingsToConfigForm();
-            Configuration.Serialize("config.xml", mainForm.settings);
             Hide();
         }
         public void SettingsToConfigForm()
         {
-            mainForm.settings.accessSecret = accessTokenSecret.Text;
-            mainForm.settings.accessToken = accessTokenBox.Text;
-            mainForm.settings.consumerKey = consumerKeyBox.Text;
-            mainForm.settings.consumerSecret = consumerSecretBox.Text;
-            mainForm.settings.shouldTweet = tweetNewFiles.Checked;
-            mainForm.settings.dirToMonitor = monitorDir.Text;
+
+            videowatch.Properties.Settings.Default.AccessTokenSecret = accessTokenSecret.Text;
+            videowatch.Properties.Settings.Default.AccessToken = accessTokenBox.Text;
+            videowatch.Properties.Settings.Default.ConsumerKey = consumerKeyBox.Text;
+            videowatch.Properties.Settings.Default.ConsumerKeySecret = consumerSecretBox.Text;
+            videowatch.Properties.Settings.Default.TweetNewFiles = tweetNewFiles.Checked;
+            videowatch.Properties.Settings.Default.MonitorDirectory = monitorDir.Text;
+            videowatch.Properties.Settings.Default.Save();
 
         }
         public void ConfigFormToSettings()
         {
-            accessTokenBox.Text = mainForm.settings.accessToken;
-            accessTokenSecret.Text = mainForm.settings.accessSecret;
-            consumerSecretBox.Text = mainForm.settings.consumerSecret;
-            consumerKeyBox.Text = mainForm.settings.consumerKey;
-            tweetNewFiles.Checked = mainForm.settings.shouldTweet;
-            monitorDir.Text = mainForm.settings.dirToMonitor;
+            accessTokenBox.Text = videowatch.Properties.Settings.Default.AccessToken;
+            accessTokenSecret.Text = videowatch.Properties.Settings.Default.AccessTokenSecret;
+            consumerSecretBox.Text = videowatch.Properties.Settings.Default.ConsumerKeySecret;
+            consumerKeyBox.Text = videowatch.Properties.Settings.Default.ConsumerKey;
+            tweetNewFiles.Checked = videowatch.Properties.Settings.Default.TweetNewFiles;
+            monitorDir.Text = videowatch.Properties.Settings.Default.MonitorDirectory;
         }
 
         private void button3_Click(object sender, EventArgs e)

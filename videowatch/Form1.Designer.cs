@@ -42,7 +42,7 @@ namespace videowatch
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(133, 11);
+            this.button2.Location = new System.Drawing.Point(61, 13);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(117, 27);
             this.button2.TabIndex = 2;
@@ -58,8 +58,9 @@ namespace videowatch
             this.videoList.Name = "videoList";
             this.videoList.ReadOnly = true;
             this.videoList.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.videoList.Size = new System.Drawing.Size(506, 321);
+            this.videoList.Size = new System.Drawing.Size(370, 87);
             this.videoList.TabIndex = 3;
+            this.videoList.Visible = false;
             // 
             // fileSystemWatcher1
             // 
@@ -80,7 +81,7 @@ namespace videowatch
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(256, 11);
+            this.button3.Location = new System.Drawing.Point(184, 13);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(114, 28);
             this.button3.TabIndex = 5;
@@ -92,7 +93,7 @@ namespace videowatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 366);
+            this.ClientSize = new System.Drawing.Size(373, 135);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.videoList);
             this.Controls.Add(this.button2);
@@ -120,7 +121,6 @@ namespace videowatch
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.Button button3;
         private configForm cf;
-        public Configuration settings;
     }
 }
 

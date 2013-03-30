@@ -26,10 +26,15 @@ namespace videowatch
             if(File.Exists("monitorList.txt"))
                 fileList.AddRange(File.ReadAllLines("monitorList.txt"));
             notifyIcon.Visible = false;
-            tokens.AccessToken = settings.accessToken;
-            tokens.AccessTokenSecret = settings.accessSecret;
-            tokens.ConsumerKey = settings.consumerKey;
-            tokens.ConsumerSecret = settings.consumerSecret;
+            tokens.AccessToken = videowatch.Properties.Settings.Default.AccessToken;
+            tokens.AccessTokenSecret = videowatch.Properties.Settings.Default.AccessTokenSecret;
+            tokens.ConsumerKey = videowatch.Properties.Settings.Default.ConsumerKey;
+            tokens.ConsumerSecret = videowatch.Properties.Settings.Default.ConsumerKeySecret;
+            this.Height -= videoList.Height;
+#if DEBUG
+            videoList.Show();
+            this.Height += videoList.Height;
+#endif
   
         }
 
@@ -39,7 +44,7 @@ namespace videowatch
             {
                 button2.Text = "Stop Monitoring";
                 isMonitoring = true;
-                fileSystemWatcher1.Path = settings.dirToMonitor;
+                fileSystemWatcher1.Path = videowatch.Properties.Settings.Default.MonitorDirectory;
                 fileSystemWatcher1.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
                 fileSystemWatcher1.EnableRaisingEvents = true;
             }
@@ -64,14 +69,15 @@ namespace videowatch
             {
                 newFile = newFile.Replace('.', ' ');
                 fileList.Add(newFile);
-                updateTextBox(newFile);
-                if (settings.shouldTweet)
+                //updateTextBox(newFile);
+                if (videowatch.Properties.Settings.Default.TweetNewFiles)
                 {
                     
                     TwitterResponse<TwitterDirectMessage> dmResponse = TwitterDirectMessage.Send(tokens, "lordbooga", newFile + " has been downloaded");
                     if (dmResponse.Result == RequestResult.Success)
                     {
-                        updateTextBox(newFile + " successfully tweeted\n");
+//                        updateTextBox(newFile + " successfully tweeted\n");
+                        File.WriteAllLines("monitorList.txt", fileList);
                     }
                     else
                     {

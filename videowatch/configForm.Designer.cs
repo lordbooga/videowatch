@@ -37,7 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.debugMe = new System.Windows.Forms.TextBox();
             this.monitorDir = new System.Windows.Forms.TextBox();
@@ -122,15 +122,15 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Consumer Secret";
             // 
-            // button1
+            // okButton
             // 
-            this.button1.Location = new System.Drawing.Point(446, 280);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 27);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Ok";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.okButton.Location = new System.Drawing.Point(446, 280);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(86, 27);
+            this.okButton.TabIndex = 9;
+            this.okButton.Text = "Ok";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -185,7 +185,7 @@
             this.Controls.Add(this.monitorDir);
             this.Controls.Add(this.debugMe);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.okButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -213,7 +213,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox debugMe;
         private Form1 mainForm;
